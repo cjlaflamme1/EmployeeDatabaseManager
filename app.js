@@ -1,6 +1,8 @@
+const inquirer = require('inquirer');
+const cTable = require('console.table');
 const mysql = require('mysql');
 
-const connection = mysql.createdConnection({
+const connection = mysql.createConnection({
     host: "localhost",
   port: 3306,
   user: "root",
@@ -14,4 +16,12 @@ connection.connect((err) => {
         return;
     }
     console.log(`Connect as id ${connection.threadId}`);
+})
+
+
+
+connection.query(`SELECT * FROM employee`, (err, result) => {
+    if(err) throw err;
+    console.log(result);
+    connection.end();
 })

@@ -22,6 +22,6 @@ connection.connect((err) => {
 
 connection.query(`SELECT * FROM employee`, (err, result) => {
     if(err) throw err;
-    console.log(result);
+    console.table(result);
     connection.end();
 })

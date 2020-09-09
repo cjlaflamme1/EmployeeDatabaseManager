@@ -19,7 +19,19 @@ const question = [
             "Exit",
             new inquirer.Separator()
         ]
-    }
+    }, {
+        type: 'input',
+        name: 'departmentName',
+        message: 'What is the name of the new department?',
+        validate: function (answer) {
+            if(answer) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        when: (response) => response.questionList === 'Add departments'
+    } 
 ]
 
 module.exports = {question};

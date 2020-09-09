@@ -1,3 +1,5 @@
+const inquirer = require("inquirer");
+
 const question = [
     {
         type: "list",
@@ -7,11 +9,15 @@ const question = [
             "Add departments",
             "Add roles",
             "Add employees",
+            new inquirer.Separator(),
             "View departments",
             "View roles",
             "View Employees",
-            "Update Employee Role", 
-            "Exit"
+            new inquirer.Separator(),
+            "Update Employee Role",
+            new inquirer.Separator(), 
+            "Exit",
+            new inquirer.Separator()
         ]
     }
 ]

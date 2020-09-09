@@ -21,6 +21,7 @@ const question = [
             new inquirer.Separator()
         ]
     }, 
+    // Maybe remove this question to turn into a function? 
     {
         type: 'input',
         name: 'departmentName',

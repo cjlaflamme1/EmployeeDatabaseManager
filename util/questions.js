@@ -24,7 +24,7 @@ const question = [
         name: 'departmentName',
         message: 'What is the name of the new department?',
         validate: function (answer) {
-            if(answer) {
+            if(RegExp(/([A-Za-z0-9])\w+/g).test(answer)) {
                 return true;
             } else {
                 return false;

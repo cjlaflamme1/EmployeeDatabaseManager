@@ -1,15 +1,7 @@
 const inquirer = require('inquirer');
 const cTable = require('console.table');
-const mysql = require('mysql');
-const {question} = require('./util/questions');
-
-const connection = mysql.createConnection({
-    host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "root",
-  database: "employee_management"
-});
+const { question } = require('./src/questions');
+const { connection } = require('./src/config/config');
 
 
 const addQuery = (table, answerObject) => {
@@ -32,6 +24,7 @@ const viewAllQuery = (table) => {
         initialInquiry();
     });
 }
+
 const initialInquiry = () => {
     inquirer.prompt(question).then((response) => {
         switch(response.questionList) {

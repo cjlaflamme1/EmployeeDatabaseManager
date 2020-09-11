@@ -63,7 +63,8 @@ const addNewRole = async () => {
             // This function below is the one that will not work while inside this function.
             // None of the functions in app.js will work within this addNewRole function
             // If I move this entire function over to app.js, everything works fine.  I think I need to wrap the functions in app.js differently? 
-           viewAllQuery();
+           viewAllQuery('role');
+              
         })
      
     

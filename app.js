@@ -2,6 +2,9 @@ const inquirer = require('inquirer');
 const cTable = require('console.table');
 const { question } = require('./src/questions');
 const { connection } = require('./src/config/config');
+const { addNewRole } = require('./src/addFunctions/addRole');
+const { promisify } = require('util');
+const query = promisify(connection.query).bind(connection);
 
 
 const addQuery = (table, answerObject) => {
@@ -17,13 +20,15 @@ const addQuery = (table, answerObject) => {
     }
 } 
 
+
 const viewAllQuery = (table) => {
-    connection.query('SELECT * FROM ??', [table], (err, result) => {
+    query('SELECT * FROM ??', [table], (err, result) => {
         if(err) throw err;
         console.table(result);
         initialInquiry();
     });
 }
+
 
 const initialInquiry = () => {
     inquirer.prompt(question).then((response) => {
@@ -43,7 +48,15 @@ const initialInquiry = () => {
             case 'Add departments':
                 addQuery(response.questionList, response);
                 break;
+            case 'Add roles':
+                addNewRole();
+                break;
         }
     })
 }
+
+
+// addNewRole();
 initialInquiry();
+// viewAllQuery('role');
+module.exports = {addQuery, viewAllQuery, initialInquiry};

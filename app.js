@@ -20,6 +20,16 @@ const addQuery = (table, answerObject) => {
     }
 } 
 
+// I was hoping this would help...it did not. 
+// const viewAllPromise = (table) => {
+//     return new Promise((resolve, reject) => {
+//         viewAllQuery(table, (data, err) => {
+//             if(err) return reject(err);
+//             resolve(data);
+//         })
+//     })
+// } 
+
 
 const viewAllQuery = (table) => {
     query('SELECT * FROM ??', [table], (err, result) => {
@@ -59,4 +69,4 @@ const initialInquiry = () => {
 // addNewRole();
 initialInquiry();
 // viewAllQuery('role');
-module.exports = {addQuery, viewAllQuery, initialInquiry};
+module.exports = {addQuery, viewAllQuery, initialInquiry };

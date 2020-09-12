@@ -1,6 +1,6 @@
 const { connection } = require('../config/config');
 const inquirer = require('inquirer');
-const cTable = require('console.table');
+
 
 
 const asyncQuery = (roleName, roleSalary, id) => {

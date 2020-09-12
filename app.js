@@ -3,6 +3,8 @@ const cTable = require('console.table');
 const { question } = require('./src/questions');
 const { addNewRole } = require('./src/addFunctions/addRole');
 const { viewAllQuery, addQuery } = require('./src/helperFunc');
+const { addNewEmployee } = require('./src/addFunctions/addEmployee');
+const addEmployee = require('./src/addFunctions/addEmployee');
 
 
 
@@ -27,6 +29,11 @@ const initialInquiry = async () => {
                 case 'Add roles':
                     await addNewRole();
                     await viewAllQuery('role');
+                    break;
+                case 'Add employees':
+                    await addNewEmployee();
+                    await viewAllQuery('employee');
+                    break;
             }
             initialInquiry();
         } catch(err) {

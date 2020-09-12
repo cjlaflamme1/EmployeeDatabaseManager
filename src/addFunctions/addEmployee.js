@@ -18,6 +18,18 @@ const asyncEmployees = () => {
     })
 }
 
+const asyncQuery = (firstName, lastName, role, manager) => {
+    return new Promise ((resolve, reject) => {
+        connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', 
+        [firstName, lastName, role, manager], 
+        (err, res) =>{
+            if(err) reject(err);
+            console.log(`Inserting new employee...`);
+            resolve(res);
+          })
+    })
+}
+
 
 const addNewEmployee = async () => {
     // Generate Role List
@@ -81,7 +93,9 @@ const addNewEmployee = async () => {
         }
     ]).then(({firstName, lastName, role, manager}) => {
         try {
-            console.log(firstName, lastName, role, manager);
+            const { id: managerId } = updatedEmployees.find(({ name }) => name === manager);
+            const { id: roleId } = updatedRoles.find(({ name }) => name === role);
+            asyncQuery(firstName, lastName, roleId, managerId);
         } catch(err) {
             console.log(err);
         }

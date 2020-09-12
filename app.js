@@ -1,72 +1,39 @@
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 const { question } = require('./src/questions');
-const { connection } = require('./src/config/config');
 const { addNewRole } = require('./src/addFunctions/addRole');
-const { promisify } = require('util');
-const query = promisify(connection.query).bind(connection);
+const { viewAllQuery, addQuery } = require('./src/helperFunc');
 
 
-const addQuery = (table, answerObject) => {
-    switch(table) {
-        case 'Add departments':
-            connection.query('INSERT INTO department SET ?', [{name: answerObject.departmentName}], (err, res) =>{
-                if(err) throw err;
-                console.log(`Inserting new department...`);
-            })
-            viewAllQuery('department');
-            break;
 
-    }
-} 
-
-// I was hoping this would help...it did not. 
-// const viewAllPromise = (table) => {
-//     return new Promise((resolve, reject) => {
-//         viewAllQuery(table, (data, err) => {
-//             if(err) return reject(err);
-//             resolve(data);
-//         })
-//     })
-// } 
-
-
-const viewAllQuery = (table) => {
-    query('SELECT * FROM ??', [table], (err, result) => {
-        if(err) throw err;
-        console.table(result);
-        initialInquiry();
-    });
-}
-
-
-const initialInquiry = () => {
-    inquirer.prompt(question).then((response) => {
-        switch(response.questionList) {
-            case 'View Employees':
-                viewAllQuery('employee');
-                break;
-            case 'View departments':
-                viewAllQuery('department');
-                break;
-            case 'View roles':
-                viewAllQuery('role');
-                break;
-            case 'Exit':
-                connection.end();
-                return;
-            case 'Add departments':
-                addQuery(response.questionList, response);
-                break;
-            case 'Add roles':
-                addNewRole();
-                break;
+const initialInquiry = async () => {
+    inquirer.prompt(question).then(async (response) => {
+        try{
+            switch (response.questionList) {
+                case 'View Employees':
+                    await viewAllQuery('employee');
+                    break;
+                case 'View departments':
+                    await viewAllQuery('department');
+                    break;
+                case 'View roles':
+                    await viewAllQuery('role');
+                    break;
+                case 'Exit':
+                    process.exit(0);
+                case 'Add departments':
+                    await addQuery(response.questionList, response);
+                    break;
+                case 'Add roles':
+                    await addNewRole();
+                    await viewAllQuery('role');
+            }
+            initialInquiry();
+        } catch(err) {
+            console.log(err);
+            process.exit(1);
         }
     })
 }
 
-
-// addNewRole();
 initialInquiry();
-// viewAllQuery('role');
-module.exports = {addQuery, viewAllQuery, initialInquiry };

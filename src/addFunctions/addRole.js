@@ -1,15 +1,33 @@
 const { connection } = require('../config/config');
 const inquirer = require('inquirer');
-const { promisify } = require('util');
-const query = promisify(connection.query).bind(connection);
-const {  viewAllQuery, initialInquiry } = require('../../app');
+const cTable = require('console.table');
 
+
+const asyncQuery = (roleName, roleSalary, id) => {
+    return new Promise((resolve, reject) => {
+      connection.query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [roleName, roleSalary, id], (err, res) =>{
+        if(err) reject(err);
+        console.log(`Inserting new department...`);
+        resolve(res);
+      })
+    })
+  }
+
+const asyncDepartment = () => {
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT * FROM department', (err, res) =>{
+        if(err) reject(err);
+        console.log(`Showing departments...`);
+        resolve(res);
+      })
+    })
+  }
 
 const addNewRole = async () => {
     let departments = []
     const updatedDepartments = []
-    departments = await query('SELECT * FROM department')
-    await departments.forEach((item) => {
+    departments = await asyncDepartment();
+    departments.forEach((item) => {
         let newItem = {
             id: item.id,
             name: item.name
@@ -18,7 +36,7 @@ const addNewRole = async () => {
     })
     console.log(updatedDepartments);
     // Add inquirer prompt here to develop new role.
-    inquirer.prompt([
+    return inquirer.prompt([
         {
             type: 'input',
             name: 'roleName',
@@ -51,27 +69,19 @@ const addNewRole = async () => {
         } 
 
     ])
-    .then(({
+    .then(async ({
         roleName,
         roleSalary,
         roleDepartment
     }) => {
-        const { id } = updatedDepartments.find(({name}) => name === roleDepartment)
-        query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [roleName, roleSalary, id], (err, result) => {
-            if(err) throw err;
-            console.log(`Adding ${roleName} to the role database.`)
-            // This function below is the one that will not work while inside this function.
-            // None of the functions in app.js will work within this addNewRole function
-            // If I move this entire function over to app.js, everything works fine.  I think I need to wrap the functions in app.js differently? 
-        //    viewAllQuery('role');
-              
-        })
-     
-    
+        try{
+            const { id } = updatedDepartments.find(({name}) => name === roleDepartment)
+            await asyncQuery(roleName, roleSalary, id); 
+        } catch(err) {
+            console.log(err);
+        }
     }).catch(err => {
         console.log(err);
-    }).finally(()=> {
-        viewAllQuery('role');
     })
     
     

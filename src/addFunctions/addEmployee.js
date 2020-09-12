@@ -102,4 +102,4 @@ const addNewEmployee = async () => {
     })
 }
 
-module.exports = { addNewEmployee };
+module.exports = { addNewEmployee, asyncRoles, asyncEmployees };

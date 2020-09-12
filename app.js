@@ -5,6 +5,7 @@ const { addNewRole } = require('./src/addFunctions/addRole');
 const { viewAllQuery, addQuery } = require('./src/helperFunc');
 const { addNewEmployee } = require('./src/addFunctions/addEmployee');
 const addEmployee = require('./src/addFunctions/addEmployee');
+const { updateRole } = require('./src/updateFunctions/updateRole');
 
 
 
@@ -32,6 +33,11 @@ const initialInquiry = async () => {
                     break;
                 case 'Add employees':
                     await addNewEmployee();
+                    await viewAllQuery('employee');
+                    break;
+                case 'Update Employee Role':
+                    // function updating role here
+                    await updateRole();
                     await viewAllQuery('employee');
                     break;
             }

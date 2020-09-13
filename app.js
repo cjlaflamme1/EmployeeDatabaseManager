@@ -15,7 +15,7 @@ const initialInquiry = async () => {
             switch (response.questionList) {
                 case 'View Employees':
                     // This function provides the basic Table view
-                    
+
                     // await viewAllQuery('employee');
 
                     // This function provides a view that replaces IDs with actual title. 
@@ -38,7 +38,8 @@ const initialInquiry = async () => {
                     break;
                 case 'Add employees':
                     await addNewEmployee();
-                    await viewAllQuery('employee');
+                    await viewEmployees();
+                    // await viewAllQuery('employee');
                     break;
                 case 'Update Employee Role':
                     // function updating role here

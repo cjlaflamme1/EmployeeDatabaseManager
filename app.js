@@ -6,7 +6,7 @@ const { viewAllQuery, addQuery } = require('./src/helperFunc');
 const { addNewEmployee } = require('./src/addFunctions/addEmployee');
 const addEmployee = require('./src/addFunctions/addEmployee');
 const { updateRole } = require('./src/updateFunctions/updateRole');
-
+const { viewEmployees } = require('./src/renderListFunc/viewEmployees');
 
 
 const initialInquiry = async () => {
@@ -14,7 +14,12 @@ const initialInquiry = async () => {
         try{
             switch (response.questionList) {
                 case 'View Employees':
-                    await viewAllQuery('employee');
+                    // This function provides the basic Table view
+                    
+                    // await viewAllQuery('employee');
+
+                    // This function provides a view that replaces IDs with actual title. 
+                    await viewEmployees();
                     break;
                 case 'View departments':
                     await viewAllQuery('department');

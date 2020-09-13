@@ -7,6 +7,7 @@ const { addNewEmployee } = require('./src/addFunctions/addEmployee');
 const addEmployee = require('./src/addFunctions/addEmployee');
 const { updateRole } = require('./src/updateFunctions/updateRole');
 const { viewEmployees } = require('./src/renderListFunc/viewEmployees');
+const { updateManager } = require('./src/updateFunctions/updateManager');
 
 
 const initialInquiry = async () => {
@@ -44,6 +45,10 @@ const initialInquiry = async () => {
                 case 'Update Employee Role':
                     // function updating role here
                     await updateRole();
+                    await viewAllQuery('employee');
+                    break;
+                case "Update Employee's Manager":
+                    await updateManager();
                     await viewAllQuery('employee');
                     break;
             }

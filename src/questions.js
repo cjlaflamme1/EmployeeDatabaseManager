@@ -15,6 +15,7 @@ const question = [
             "View Employees",
             new inquirer.Separator(),
             "Update Employee Role",
+            "Update Employee's Manager",
             new inquirer.Separator(), 
             "Exit",
             new inquirer.Separator()

@@ -20,8 +20,8 @@ The Employee Database Manager is a CLI app that manages your Employment Database
     
 ### Finished Project
 Project Link: [Employee Database Manager](https://github.com/cjlaflamme1/EmployeeDatabaseManager)
-    
-    
+Video Demonstration: [Employee Database Manager Demonstration](https://drive.google.com/file/d/1Bhp-4JpcmOUxyFvl6Qbp0PEw0lGietfG/view)    
+
 ### Project Screenshot
 ![project1](https://user-images.githubusercontent.com/64158642/93010084-7197fc80-f556-11ea-9af1-c1e04d2a6700.jpg)
 ![project2](https://user-images.githubusercontent.com/64158642/93010087-7361c000-f556-11ea-99e3-738142ed29e0.jpg)

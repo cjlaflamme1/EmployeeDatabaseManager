@@ -17,7 +17,7 @@ const asyncDepartment = () => {
     return new Promise((resolve, reject) => {
       connection.query('SELECT * FROM department', (err, res) =>{
         if(err) reject(err);
-        console.log(`Showing departments...`);
+        
         resolve(res);
       })
     })
@@ -34,7 +34,7 @@ const addNewRole = async () => {
         };
         updatedDepartments.push(newItem);
     })
-    console.log(updatedDepartments);
+    
     // Add inquirer prompt here to develop new role.
     return inquirer.prompt([
         {

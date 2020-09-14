@@ -42,7 +42,6 @@ const updateManager = async () => {
 
         const { id: newManagerId } = newManagerList.find(({ name }) => name === newManager);
 
-        console.log(employeeId, newManagerId);
         asyncQuery(newManagerId, employeeId);
     })
 }

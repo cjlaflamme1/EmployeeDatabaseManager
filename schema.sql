@@ -6,7 +6,7 @@ CREATE TABLE department
 	id int NOT NULL AUTO_INCREMENT,
 	name varchar(30) NOT NULL,
 	PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE role
 (
@@ -16,7 +16,7 @@ CREATE TABLE role
     department_id INT NULL,
 	PRIMARY KEY (id),
     FOREIGN KEY (department_id) REFERENCES department(id)
-)
+);
 
 CREATE TABLE employee
 (
